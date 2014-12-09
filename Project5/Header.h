@@ -11,13 +11,12 @@ using namespace std;
 
 template <class T> class ArrayLLN;
 template <class T> class ArrayLL;
-ArrayLL<string> *l;
 
 int main();
-int getInput();
+string getInput();
 string getCaps(string s);
-int addTitle();
-int removeTitle();
-int print();
+string addTitle(string s);
+string removeTitle(int i);
+string print();
 
 #endif

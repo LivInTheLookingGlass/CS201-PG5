@@ -5,63 +5,78 @@
 #include "LL.h"
 
 using namespace std;
+ArrayLL<string> l;
 
 
 int main()	{
-	l = new ArrayLL<string>();
-	int loopcontrol = 1;
 	cout << "Commands: add, remove, print, exit" << endl;
-	for (int i = 1; i != 0; i = getInput());
+	for (string i = ""; i != "EXIT"; i = getInput());
 	cout << "On it, boss!" << endl;
-	delete l;
 	system("pause");
 	return 0;
 }
 
-int getInput() {
+string getInput() {
 	cout << "command:" << endl;
 	string s;
-	getline(cin,s);
+	getline(cin, s);
 	s = getCaps(s);
 	if (s == "EXIT")
-		return 0;
-	else if (s == "ADD")
-		return addTitle();
-	else if (s == "REMOVE")
-		return removeTitle();
-	else if (s == "PRINT")
-		return print();
+		return "EXIT";
+	else if ((string)s.substr(0, 3) == "ADD" && s != "ADD") //This is wrong
+		return addTitle((string)s.substr(5, (int)s.length() - 6));
+	else if ((string)s.substr(0, 6) == "REMOVE" && s != "REMOVE")
+		return removeTitle(atoi(s.substr(7, (int)s.length() - 7).c_str()));
+	else if (s == "PRINT")	{
+		print();
+		return "PRINT";
+	}
 	else {
-		cout << endl << "Unknown command.  You suck." << endl;
-		return 2;
+		cout << endl << "Unknown command or not enough arguments" << endl;
+		return "UNKNOWN";
 	}
 }
 
-int addTitle() {
-	cout << "title?" << endl;
-	string s;
-	getline(cin,s);
-	s = getCaps(s);
-	l->appendInOrder(s);
-	return 1;
-} 
-
-int removeTitle() {
-	cout << "substring?" << endl;
-	string s;
-	getline(cin,s);
-	s = getCaps(s);
-	l->removeTitle(s);
-	return 1;
+int findlocation(string s)	{
+	int i = 0;
+	for (; l[i] < s; i++);
+	return i;
 }
 
-int print() {
-	l->print();
-	return 1;
-} 
+string addTitle(string s) {
+	bool a = false;
+	if (l.size() > 0 && l[0] > s)
+		l.insert(0, s);
+	else if (l.size() > 0)	{
+		for (int i = 0; i < l.size() && !a; i++) {
+			if (l[i] > s)	{
+				l.insert(i, s);
+				a = true;
+			}
+			else if (l[i] == s)
+				return s;
+		}
+		if (!a)	{
+			l.insert(l.size(), s);
+			a = true;
+		}
+	}
+	else
+		l.insert(0, s);
+	return s;
+}
+
+string removeTitle(int i) {
+	return l.remove(i);
+}
+
+string print() {
+	l.print();
+	return "PRINT";
+}
 
 string getCaps(string s) {
-	for (int i = 0; i < (int) s.length(); i++) {
+	for (int i = 0; i < (int)s.length(); i++) {
 		if (s[i] >= 'a' && s[i] <= 'z')
 			s[i] = s[i] - 'a' + 'A';
 	}

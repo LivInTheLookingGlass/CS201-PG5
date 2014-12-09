@@ -17,20 +17,21 @@ public:
 	~ArrayLL();
 	int size();
 	void append(T stuff);
-	void appendInOrder(T stuff);
+	T appendInOrder(T stuff);
 	void insert(int i, T stuff);
 	T remove(int i);
-	T removeTitle(T arg);
 	T & operator[] (int i);
 	void print();
 };
 
 template <class T> ArrayLL<T>::ArrayLL()	{
 	head = NULL;
+	length = 0;
 }
 
 template <class T> ArrayLL<T>::ArrayLL(T stuff)	{
-	append(stuff);
+	head = new ArrayLLN<T>(stuff);
+	length = 1;
 }
 
 template <class T> ArrayLL<T>::~ArrayLL()	{
@@ -42,53 +43,49 @@ template <class T> int ArrayLL<T>::size()	{
 }
 
 template <class T> void ArrayLL<T>::append(T stuff)	{
-	if (!head)
+	if (head == NULL)
 		head = new ArrayLLN(stuff);
 	else
 		head->append(stuff);
-	-- length;
+	++ length;
 }
 
-template <class T> void ArrayLL<T>::appendInOrder(T stuff)	{
+template <class T> T ArrayLL<T>::appendInOrder(T stuff)	{
 	if (!head)
 		head = new ArrayLLN<T>(stuff);
 	else if ((T)head->get() > (T)stuff)
 		head = new ArrayLLN<T>(stuff,head);
 	else
 		head->appendInOrder(stuff);
+	++length;
+	return stuff;
 }
 
 template <class T> void ArrayLL<T>::insert(int i, T stuff)	{
 	if (!head)
-		head = new ArrayLLN(stuff);
+		head = new ArrayLLN<T>(stuff);
+	else if (i == 0)	{
+		ArrayLLN<T> *t = new ArrayLLN<T>(stuff);
+		t->setNext(head);
+		head = t;
+	}
 	else
 		head->insert(i-1,stuff);
+	++length;
 }
 
 template <class T> T ArrayLL<T>::remove(int i)	{
-	if (!head)
-		return NULL;
-	head->remove(i);
-	-- length;
-}
-
-template <class T> T ArrayLL<T>::removeTitle(T arg)	{
-	if (!head)
-		return NULL;
-	--length;
-	if (head->get() == arg)	{
-		T t = head->get();
+	T stuff;
+	if (head && i == 0)
 		head = head->getNext();
-		return t;
-	}
-	return head->removeTitle(arg,NULL);
+	if (head && i > 0)
+		stuff = head->remove(i, NULL);
+	--length;
+	return stuff;
 }
 
 template <class T> T & ArrayLL<T>::operator[] (int i)	{
-	if (!head)
-		return NULL;
-	else
-		head->grab(i);
+		return head->grab(i);
 }
 
 template <class T> void ArrayLL<T>::print()	{

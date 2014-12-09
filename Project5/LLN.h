@@ -21,9 +21,8 @@ public:
 	void insert(int i, T stuff);
 	void append(T stuff);
 	void appendInOrder(T stuff);
-	T removeTitle(T stuff, ArrayLLN<T> *prev);
-	T remove(int i);
-	T grab(int i);
+	T remove(int i, ArrayLLN<T> *prev);
+	T &grab(int i);
 	void print();
 };
 
@@ -91,42 +90,25 @@ template <class T> void ArrayLLN<T>::insert(int i, T stuff)	{
 		next->insert(i-1,stuff);
 }
 
-template <class T> T ArrayLLN<T>::remove(int i)	{
+template <class T> T ArrayLLN<T>::remove(int i, ArrayLLN<T> *prev)	{
 	if (i == 0)	{
-		ArrayLLN<T> t = next;
+		T t = content;
+		prev->setNext(next);
 		next = NULL;
 		delete this;
 		return t;
 	}
 	else if (i > 0 && !next)	{
-		return this;
+		return content;
 	}
 	else	{
-		next = next->remove(i-1);
+		return next->remove(i-1,this);
 	}
 }
 
-template <class T> T ArrayLLN<T>::removeTitle(T stuff,ArrayLLN<T> *prev)	{
-	if ((T)stuff == (T)content)	{
-		prev->setNext(next);
-		next = NULL;
-		T con = content;
-		delete this;
-		return con;
-	}
-	else if ((T)stuff != (T)content && !next)	{
-		return NULL;
-	}
-	else	{
-		return next->removeTitle(stuff,this);
-	}
-}
-
-template <class T> T ArrayLLN<T>::grab(int i)	{
+template <class T> T &ArrayLLN<T>::grab(int i)	{
 	if (i > 0 && next)
 		return next->grab(i-1);
-	else if (!next)
-		return NULL;
 	else
 		return content;
 }

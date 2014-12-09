@@ -1,4 +1,4 @@
-﻿Build started 11/24/2014 4:20:22 PM.
+﻿Build started 12/8/2014 7:07:35 PM.
      1>Project "C:\Users\Gabe\Documents\Visual Studio 2012\Projects\Project5\Project5\Project5.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          D:\Visual Studios\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
@@ -10,4 +10,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.68
+Time Elapsed 00:00:00.78
