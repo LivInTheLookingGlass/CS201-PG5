@@ -1,3 +1,6 @@
+//Gabe Appleton
+// This is the prototype file for the ArrayLL Template
+
 #ifndef _LL_
 #define _LL_
 
@@ -12,16 +15,16 @@ private:
 	ArrayLLN<T> *head;
 	int length;
 public:
-	ArrayLL();
-	ArrayLL(T stuff);
-	~ArrayLL();
-	int size();
-	void append(T stuff);
-	T appendInOrder(T stuff);
-	void insert(int i, T stuff);
-	T remove(int i);
-	T & operator[] (int i);
-	void print();
+	ArrayLL(); //constructor with no data
+	ArrayLL(T stuff); // constructor to start with head
+	~ArrayLL(); //destructor
+	int size(); //returns size
+	void append(T stuff); // adds new node to end of file with content T
+	T appendInOrder(T stuff); // appends in value order
+	void insert(int i, T stuff); //inserts item at position i
+	T remove(int i); //removes node at position i
+	T & operator[] (int i); //returns the content of the node at position i
+	void print(); //prints the list
 };
 
 template <class T> ArrayLL<T>::ArrayLL()	{
@@ -76,11 +79,13 @@ template <class T> void ArrayLL<T>::insert(int i, T stuff)	{
 
 template <class T> T ArrayLL<T>::remove(int i)	{
 	T stuff;
-	if (head && i == 0)
-		head = head->getNext();
-	if (head && i > 0)
-		stuff = head->remove(i, NULL);
-	--length;
+	if (i < length && i >= 0)	{
+		if (head && i == 0)
+			head = head->getNext();
+		if (head && i > 0)
+			stuff = head->remove(i, NULL);
+		--length;
+	}
 	return stuff;
 }
 

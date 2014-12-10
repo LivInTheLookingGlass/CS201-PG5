@@ -1,3 +1,6 @@
+//Gabe Appleton
+// This is the prototype file for the ArrayLLN Template
+
 #ifndef _LLN_
 #define _LLN_
 
@@ -10,20 +13,20 @@ private:
 	T content;
 	ArrayLLN<T> * next;
 public:
-	ArrayLLN(ArrayLLN<T> *pointer);
-	ArrayLLN(T stuff, ArrayLLN<T> *n);
-	ArrayLLN(T stuff, T *n);
-	ArrayLLN(T stuff);
-	~ArrayLLN();
-	ArrayLLN<T> * getNext();
-	void setNext(ArrayLLN<T> *n);
-	T get();
-	void insert(int i, T stuff);
-	void append(T stuff);
-	void appendInOrder(T stuff);
-	T remove(int i, ArrayLLN<T> *prev);
-	T &grab(int i);
-	void print();
+	ArrayLLN(ArrayLLN<T> *pointer); //constructor to mirror already-made node
+	ArrayLLN(T stuff, ArrayLLN<T> *n); //constructor with content & next
+	ArrayLLN(T stuff, T *n); //construcor with content and uncreated next
+	ArrayLLN(T stuff); //constructor with content
+	~ArrayLLN(); //destrucor
+	ArrayLLN<T> * getNext(); // returns pointer to next
+	void setNext(ArrayLLN<T> *n); //sets the next node
+	T get(); //returns content
+	void insert(int i, T stuff); //inserts node at i nodes ahead
+	void append(T stuff); //appends to end of list
+	void appendInOrder(T stuff); //appends in value order
+	T remove(int i, ArrayLLN<T> *prev); //removes at i ahead
+	T &grab(int i); // returns reference content at location i
+	void print(); //prints all nodes
 };
 
 template <class T> ArrayLLN<T>::ArrayLLN(ArrayLLN<T> *pointer)	{
